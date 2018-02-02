@@ -35,3 +35,4 @@
 .\objects\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\main.o: ..\HARDWARE\DMA\dma.h
 .\objects\main.o: ..\HARDWARE\TIMER\timer.h
+.\objects\main.o: ..\HARDWARE\CAN\can.h
