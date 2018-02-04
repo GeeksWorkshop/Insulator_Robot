@@ -31,6 +31,3 @@
 .\objects\can.o: ..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h
 .\objects\can.o: ..\STM32F10x_FWLib\inc\misc.h
 .\objects\can.o: ..\HARDWARE\LED\led.h
-.\objects\can.o: ..\SYSTEM\delay\delay.h
-.\objects\can.o: ..\SYSTEM\usart\usart.h
-.\objects\can.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

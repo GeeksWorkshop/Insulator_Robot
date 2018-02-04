@@ -19,7 +19,7 @@ int speed=0;
   delay_ms(1000);
   USART1_DMA_RX();
   TIM_SetCompare2(TIM2,800);
- 	CAN_Mode_Init(CAN_SJW_1tq,CAN_BS2_8tq,CAN_BS1_9tq,4,CAN_Mode_LoopBack);//CAN初始化环回模式,波特率500Kbps    
+ 	CAN_Mode_Init(CAN_SJW_1tq,CAN_BS2_8tq,CAN_BS1_9tq,2,CAN_Mode_LoopBack);//CAN初始化环回模式,波特率500Kbps    
 
 	 while(1)
 		 
