@@ -28,8 +28,6 @@
 
 
 moto_measure_t moto_chassis[4] = { 0 }; //4 chassis moto
-
-
 u8 CAN_Mode_Init(u8 tsjw,u8 tbs2,u8 tbs1,u16 brp,u8 mode)
 {
 
@@ -50,7 +48,7 @@ u8 CAN_Mode_Init(u8 tsjw,u8 tbs2,u8 tbs1,u16 brp,u8 mode)
     GPIO_Init(GPIOA, &GPIO_InitStructure);		//初始化IO
    
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_11;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;//上拉输入
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU ;//上拉输入
     GPIO_Init(GPIOA, &GPIO_InitStructure);//初始化IO
 	  
  	//CAN单元设置
@@ -91,26 +89,47 @@ u8 CAN_Mode_Init(u8 tsjw,u8 tbs2,u8 tbs1,u16 brp,u8 mode)
   	NVIC_Init(&NVIC_InitStructure);
 		
 		NVIC_InitStructure.NVIC_IRQChannel = USB_HP_CAN1_TX_IRQn;
-  	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;     // 主优先级为1
+  	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;     // 主优先级为1
   	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;            // 次优先级为0
   	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
   	NVIC_Init(&NVIC_InitStructure);
+		
+		NVIC_InitStructure.NVIC_IRQChannel = USB_HP_CAN1_TX_IRQn;
+  	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;     // 主优先级为1
+  	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 2;            // 次优先级为0
+  	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  	NVIC_Init(&NVIC_InitStructure);
+   
    
 #endif
 	return 0;
 }   
  
+
+
 #if CAN_RX0_INT_ENABLE	//使能RX0中断
 //中断服务函数			    
 void USB_LP_CAN1_RX0_IRQHandler(void)
 {
   	CanRxMsg RxMessage;
-//	int i=0;
     CAN_Receive(CAN1, 0, &RxMessage);
-	 CanReceiveMsgProcess(&RxMessage);
+ 	 CanReceiveMsgProcess(&RxMessage);
 
 }
+
+void USB_HP_CAN1_TX_IRQHandler(void)
+
+{
+    if (CAN_GetITStatus(CAN1,CAN_IT_TME)!= RESET) 
+	{
+		CAN_ClearITPendingBit(CAN1,CAN_IT_TME);
+    }
+}
+
+
 #endif
+
+
 
 //can发送一组数据(固定格式:ID为0X12,标准帧,数据帧)	
 //len:数据长度(最大为8)				     
@@ -155,13 +174,6 @@ u8 Can_Receive_Msg(u8 *buf)
 }
 
 
-void USB_HP_CAN1_TX_IRQHandler(void) //CAN TX
-{
-    if (CAN_GetITStatus(CAN1,CAN_IT_TME)!= RESET) 
-	{
-		CAN_ClearITPendingBit(CAN1,CAN_IT_TME);
-    }
-}
 
 
 
@@ -190,8 +202,6 @@ void CanReceiveMsgProcess(CanRxMsg * msg)
 				{
 				}
 		}
-		
-		
 		
 }
 
@@ -232,4 +242,23 @@ void get_moto_measure(moto_measure_t* ptr, CanRxMsg * msg)
 		ptr->total_angle = ptr->total_ecd * 360 / 8192;
 }
 
+
+void Set_CM_Speed(CAN_TypeDef *CANx, int16_t cm1_iq, int16_t cm2_iq, int16_t cm3_iq, int16_t cm4_iq)
+{
+    CanTxMsg tx_message;
+    tx_message.StdId = 0x200;
+    tx_message.IDE = CAN_Id_Standard;
+    tx_message.RTR = CAN_RTR_Data;
+    tx_message.DLC = 0x08;
+    
+    tx_message.Data[0] = (uint8_t)(cm1_iq >> 8);
+    tx_message.Data[1] = (uint8_t)cm1_iq;
+    tx_message.Data[2] = (uint8_t)(cm2_iq >> 8);
+    tx_message.Data[3] = (uint8_t)cm2_iq;
+    tx_message.Data[4] = (uint8_t)(cm3_iq >> 8);
+    tx_message.Data[5] = (uint8_t)cm3_iq;
+    tx_message.Data[6] = (uint8_t)(cm4_iq >> 8);
+    tx_message.Data[7] = (uint8_t)cm4_iq;
+    CAN_Transmit(CANx,&tx_message);
+}
 

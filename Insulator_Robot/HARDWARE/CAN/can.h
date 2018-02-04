@@ -49,6 +49,7 @@ u8 Can_Receive_Msg(u8 *buf);							//接收数据
 void CanReceiveMsgProcess(CanRxMsg * msg);
 void get_moto_offset(moto_measure_t* ptr,CanRxMsg * msg);
 void get_moto_measure(moto_measure_t* ptr, CanRxMsg * msg);
+void Set_CM_Speed(CAN_TypeDef *CANx, int16_t cm1_iq, int16_t cm2_iq, int16_t cm3_iq, int16_t cm4_iq);
 
 
 #define RATE_BUF_SIZE 6
