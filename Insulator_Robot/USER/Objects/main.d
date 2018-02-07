@@ -1,4 +1,5 @@
 .\objects\main.o: main.c
+.\objects\main.o: main.h
 .\objects\main.o: ..\HARDWARE\LED\led.h
 .\objects\main.o: ..\SYSTEM\sys\sys.h
 .\objects\main.o: ..\USER\stm32f10x.h
@@ -36,3 +37,4 @@
 .\objects\main.o: ..\HARDWARE\DMA\dma.h
 .\objects\main.o: ..\HARDWARE\TIMER\timer.h
 .\objects\main.o: ..\HARDWARE\CAN\can.h
+.\objects\main.o: pid.h
