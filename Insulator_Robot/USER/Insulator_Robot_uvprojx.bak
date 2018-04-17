@@ -364,7 +364,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_MD,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\USER;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\STM32F10x_FWLib\inc;..\HARDWARE\DMA;..\HARDWARE\LED;..\HARDWARE\TIMER;..\CORE;..\HARDWARE\CAN</IncludePath>
+              <IncludePath>..\USER;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\STM32F10x_FWLib\inc;..\HARDWARE\DMA;..\HARDWARE\LED;..\HARDWARE\TIMER;..\CORE</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -437,11 +437,6 @@
               <FileType>1</FileType>
               <FilePath>..\STM32F10x_FWLib\src\stm32f10x_rcc.c</FilePath>
             </File>
-            <File>
-              <FileName>stm32f10x_can.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\STM32F10x_FWLib\src\stm32f10x_can.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -466,11 +461,6 @@
               <FileName>can.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\CAN\can.c</FilePath>
-            </File>
-            <File>
-              <FileName>pid.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\pid.c</FilePath>
             </File>
           </Files>
         </Group>

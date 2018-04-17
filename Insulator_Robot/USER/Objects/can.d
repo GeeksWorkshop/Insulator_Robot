@@ -3,7 +3,7 @@
 .\objects\can.o: ..\SYSTEM\sys\sys.h
 .\objects\can.o: ..\USER\stm32f10x.h
 .\objects\can.o: ..\CORE\core_cm3.h
-.\objects\can.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\can.o: C:\Keil_v5\ARM\ARMCC\bin\..\include\stdint.h
 .\objects\can.o: ..\USER\system_stm32f10x.h
 .\objects\can.o: ..\USER\stm32f10x_conf.h
 .\objects\can.o: ..\STM32F10x_FWLib\inc\stm32f10x_adc.h
